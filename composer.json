@@ -1,0 +1,19 @@
+{
+    "name": "packie/php-further-learning",
+    "type": "project",
+    "description": "Learn PHP function usage",
+    "require": {
+        "ext-pcntl": "*",
+        "ext-zip": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}

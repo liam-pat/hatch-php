@@ -4,7 +4,8 @@
     "description": "Learn PHP function usage",
     "require": {
         "ext-pcntl": "*",
-        "ext-zip": "*"
+        "ext-zip": "*",
+        "ext-simplexml": "*"
     },
     "autoload": {
         "psr-4": {

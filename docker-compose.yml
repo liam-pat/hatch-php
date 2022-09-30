@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+    ftp:
+        image: stilliard/pure-ftpd
+        container_name: ftp-server
+        environment:
+            TZ: 'Asia/Shanghai'
+            PUBLICHOST: "localhost"
+            FTP_USER_NAME: ftp
+            FTP_USER_PASS: ftp
+            FTP_USER_HOME: /home/ftp
+            FTP_USER_UID: 1000
+            FTP_USER_GID: 1000
+        networks:
+            php-further-learning-network:
+                ipv4_address: 192.168.220.15
+        volumes:
+            - "./tmp:/home/ftp"
+        restart: unless-stopped
+
+networks:
+    php-further-learning-network:
+        ipam:
+            config:
+                -   subnet: 192.168.220.0/24

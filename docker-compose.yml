@@ -3,7 +3,8 @@ version: '3.4'
 services:
     ftp:
         image: stilliard/pure-ftpd
-        container_name: ftp-server
+        container_name: php-learning_ftp
+        restart: on-failure
         environment:
             TZ: 'Asia/Shanghai'
             PUBLICHOST: "localhost"
@@ -12,12 +13,26 @@ services:
             FTP_USER_HOME: /home/ftp
             FTP_USER_UID: 1000
             FTP_USER_GID: 1000
+        volumes:
+            - "./tmp:/home/ftp"
         networks:
             php-further-learning-network:
                 ipv4_address: 192.168.220.15
+
+    mysql:
+        image: mysql:8.0
+        container_name: php-learning_mysql
+        restart: on-failure
+        environment:
+            - MYSQL_DATABASE=php
+            - MYSQL_ROOT_PASSWORD=root
         volumes:
-            - "./tmp:/home/ftp"
-        restart: unless-stopped
+            - "./docker/mysql/conf/:/var/lib/mysql/conf.d/"
+            - "./docker/mysql/init/:/docker-entrypoint-initdb.d/"
+        command: --default-authentication-plugin=mysql_native_password --lower-case-table-names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+        networks:
+            php-further-learning-network:
+                ipv4_address: 192.168.220.25
 
 networks:
     php-further-learning-network:

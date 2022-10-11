@@ -6,7 +6,8 @@
         "ext-pcntl": "*",
         "ext-zip": "*",
         "ext-simplexml": "*",
-        "ext-ftp": "*"
+        "ext-ftp": "*",
+        "ext-mysqli": "*"
     },
     "autoload": {
         "psr-4": {

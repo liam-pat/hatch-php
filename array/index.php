@@ -6,35 +6,105 @@ $person = [
     ['id' => 5342, 'first_name' => 'Jane', 'last_name' => 'Jones'],
     ['id' => 5623, 'first_name' => 'Peter', 'last_name' => 'Doe',],
 ];
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $caseUpperKeyArr = array_change_key_case($strKeyArr, CASE_UPPER);
 print_r($caseUpperKeyArr);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $chuckArr = array_chunk($strKeyArr, 1, true);
 print_r($chuckArr);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-
+/**
+ * output:
+ * Array
+ * (
+ * [0] => Array
+ * (
+ * [name] => jerry
+ * )
+ * [1] => Array
+ * (
+ * [age] => 1
+ * )
+ * [2] => Array
+ * (
+ * [date] => 20221019
+ * )
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $pickNameArr = array_column($person, 'first_name', 'id');
 print_r($pickNameArr);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+/**
+ * output :
+ * Array
+ * (
+ * [2135] => John
+ * [3245] => Sally
+ * [5342] => Jane
+ * [5623] => Peter
+ * )
+ */
 
-print_r(array_combine(['name', 'age'], ['Locy', 25]));
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-
+print_r(array_combine(['name', 'age'], ['Loci', 25]));
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+/**
+ * output :
+ * Array
+ * (
+ * [name] => Loci
+ * [age] => 25
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $data = ['test01', 'test02', 'test03', 'test01'];
 print_r(array_count_values($data));
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * $colors01 exists but $colors02 do not exist
+ * output:
+ * Array
+ * (
+ * [test01] => 2
+ * [test02] => 1
+ * [test03] => 1
+ * )
+ *
  */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $colors01 = ["a" => "green", "red", "blue", "red"];
 $colors02 = ["b" => "green", "yellow", "red"];
 // only compare value
 print_r(array_diff($colors01, $colors02));
+/**
+ * output :
+ * Array
+ * (
+ * [1] => blue
+ * )
+ */
 // only compare key
 print_r(array_diff_key($colors01, $colors02));
+/**
+ * output :
+ * (
+ * [a] => green
+ * [2] => red
+ * )
+ */
 // compare key and value
 print_r(array_diff_assoc($colors01, $colors02));
+/**
+ * output:
+ * (
+ * [a] => green
+ * [0] => red
+ * [1] => blue
+ * [2] => red
+ * )
+ */
 $uAssocData = array_diff_uassoc($colors01, $colors02, static function ($key1, $key2) {
     if ($key1 === $key2) {
         return 0;
@@ -43,6 +113,16 @@ $uAssocData = array_diff_uassoc($colors01, $colors02, static function ($key1, $k
     return ($key1 > $key2) ? 1 : -1;
 });
 print_r($uAssocData);
+/**
+ * output:
+ * Array
+ * (
+ * [a] => green
+ * [0] => red
+ * [1] => blue
+ * [2] => red
+ * )
+ */
 $uKeyData = array_diff_ukey($colors01, $colors02, static function ($key1, $key2) {
     if ($key1 === $key2) {
         return 0;
@@ -51,174 +131,13 @@ $uKeyData = array_diff_ukey($colors01, $colors02, static function ($key1, $key2)
     return $key1 > $key2 ? 1 : -1;
 });
 print_r($uKeyData);
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * fill out key to array
- */
-$key = ['name', 'nickname'];
-print_r(array_fill_keys($key, 'test'));
-/**
- * fill out array
- */
-print_r(array_fill(5, 10, 'test'));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array filter
- */
-$array01 = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => null, 'g' => '', 'h' => [], 'i' => 'null', 'j' => false, 'k' => 'false'];
-$array02 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-print_r(array_filter($array01));
-$useKeyAndValueArr = array_filter($array02, static function ($value, $key) {
-    return $value <= 8;
-}, ARRAY_FILTER_USE_BOTH);
-print_r($useKeyAndValueArr);
-$useKeyArr = array_filter($array02, static function ($key) {
-    return $key <= 3;
-}, ARRAY_FILTER_USE_KEY);
-print_r($useKeyArr);
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * reverse the array
- */
-print_r(array_flip($strKeyArr));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * intersect array
- * &
- */
-$arrA = ['green', 'a' => 'red', 'orange', 5 => 'pink', 'yellow'];
-$arrB = ['green', 3 => 'orange', 'pink', 5 => 'yellow'];
-print_r(array_intersect_assoc($arrA, $arrB));
-print_r(array_intersect($arrA, $arrB));
-print_r(array_intersect_key($arrA, $arrB));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array is list
- */
-$list = [1, 5, 22, 45];
-echo sprintf('Is list %s', array_is_list($list) ? 'true' : 'false'), PHP_EOL;
-$list['test'] = 101;
-echo sprintf('Is list %s', array_is_list($list) ? 'true' : 'false'), PHP_EOL;
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array key exist
- */
-echo sprintf('Has key name exist :  %s', array_key_exists('name1', $strKeyArr) ? 'true' : 'false'), PHP_EOL;
-/**
- * get array key
- */
-echo sprintf('First key_name = %s', array_key_first($strKeyArr)), PHP_EOL;
-echo sprintf('Last key_name = %s', array_key_last($strKeyArr)), PHP_EOL;
-print_r(array_keys($strKeyArr));
-print_r(array_map(static fn($value): int => $value * 2, range(1, 5)));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array merge
- */
-$ar1 = ['color' => ['favorite' => 'red'], 5];
-$ar2 = [10, 'color' => ["favorite" => 'green', 'blue']];
-print_r(array_merge_recursive($ar1, $ar2));
-$ar1 = ['test01', 'test02', 'test03', 'test04'];
-$ar2 = ['test05', 'test06', 'test07', 'test08'];
-print_r(array_merge($ar1, $ar2));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array sort
- */
-$list = [22, 45, 1, 5, 277, 2];
-array_multisort($list, SORT_ASC, SORT_NATURAL);
-print_r($list);
-arsort($list, SORT_NUMERIC);
-print_r($list);
-rsort($list);
-print_r($list);
-sort($list);
-print_r($list);
-asort($list, SORT_NUMERIC);
-print_r($list);
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array pad
- */
-$list1 = [22, 45, 1];
-print_r(array_pad($list1, 5, 6666));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array pop
- */
-$stack = ["orange", "banana", "apple", "raspberry"];
-array_push($stack, 'test');
-$fruit = array_pop($stack);
-print_r($stack);
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array product
- */
-$a = [2, 4, 6, 8];
-echo sprintf('x result : %d', array_product($a)), PHP_EOL;
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array sum
- */
-$a = [2, 4, 6, 8];
-echo sprintf('x result : %d', array_sum($a)), PHP_EOL;
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array random
- * return the array key only
- */
-$input = ["Neo", "Morpheus", "Trinity", "Cypher", "Tank"];
-print_r(array_rand($input, 2));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array reduce
- */
-echo array_reduce($a, static fn($carry, $item): int => $carry + $item), PHP_EOL;
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array replace recursive
- */
-$base = ['citrus' => ["orange"], 'berries' => ["blackberry", "raspberry"], 'ooh' => 'you', 'replace' => ['x' => ['xxx1' => 'xxx1']]];
-$replacements = ['citrus' => ['pineapple_02'], 'berries' => ['blueberry02'], 'replace' => ['x' => ['xxx1' => 'xxx2']]];
-print_r(array_replace($base, $replacements));
-print_r(array_replace_recursive($base, $replacements));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array reverse
- */
-$input = ["php", 4.0, ["green", "red"], 'nginx' => '52'];
-print_r(array_reverse($input));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array search
- */
-echo sprintf('php version searched , key : %s', array_search('52', $input, true)), PHP_EOL;
-print_r(array_reverse($input));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array shift
- */
-$stack = ["orange", "banana", "apple", "raspberry"];
-array_unshift($stack, 'pear');
-$fruit = array_shift($stack);
-print_r($stack);
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array slice
- */
-print_r(array_slice($stack, 1, 2, true));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array splice
- */
-$arrA = ['a', 'b', 'c', 'd', 'e', 'f'];
-$arrB = ['a2', 'b2', 'c3', 'd4', 'e5', 'f6'];
-// return the remove element
-print_r(array_splice($arrA, 0, 3, $arrB));
-print_r($arrA);
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array u diff
+ * output :
+ * Array
+ * (
+ * [a] => green
+ * [2] => red
+ * )
  */
 $a1 = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5];
 $a2 = ['a' => 6, 'b' => 7, 'c' => 8, 'd' => 9, 'e' => 10];
@@ -236,53 +155,595 @@ array_udiff($a1, $a2, static function ($a, $b) {
     return 0;
 });
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$key = ['name', 'nickname'];
+print_r(array_fill_keys($key, 'test'));
 /**
- * array unique
+ * output :
+ * Array
+ * (
+ * [name] => test
+ * [nickname] => test
+ * )
  */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+print_r(array_fill(5, 10, 'test'));
+/**
+ * output:
+ * Array
+ * (
+ * [5] => test
+ * [6] => test
+ * [7] => test
+ * [8] => test
+ * [9] => test
+ * [10] => test
+ * [11] => test
+ * [12] => test
+ * [13] => test
+ * [14] => test
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$array01 = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => null, 'g' => '', 'h' => [], 'i' => 'null', 'j' => false, 'k' => 'false'];
+$array02 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+print_r(array_filter($array01));
+/**
+ * output :
+ * Array
+ * (
+ * [a] => 1
+ * [b] => 2
+ * [c] => 3
+ * [d] => 4
+ * [e] => 5
+ * [i] => null
+ * [k] => false
+ * )
+ */
+$useKeyAndValueArr = array_filter($array02, static function ($value, $key) {
+    return $value <= 8;
+}, ARRAY_FILTER_USE_BOTH);
+print_r($useKeyAndValueArr);
+/**
+ * output :
+ * Array
+ * (
+ * [0] => 1
+ * [1] => 2
+ * [2] => 3
+ * [3] => 4
+ * [4] => 5
+ * [5] => 6
+ * [6] => 7
+ * [7] => 8
+ * )
+ */
+$useKeyArr = array_filter($array02, static function ($key) {
+    return $key <= 3;
+}, ARRAY_FILTER_USE_KEY);
+print_r($useKeyArr);
+/**
+ * output :
+ * Array
+ * (
+ * [0] => 1
+ * [1] => 2
+ * [2] => 3
+ * [3] => 4
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$a1 = ['a' => 1, 'b' => 2, 'c' => 3];
+print_r(array_flip($a1));
+/**
+ * output :
+ * Array
+ * (
+ * [1] => a
+ * [2] => b
+ * [3] => c
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$arrA = ['green', 'a' => 'red', 'orange', 5 => 'pink', 'yellow'];
+$arrB = ['green', 3 => 'orange', 'pink', 5 => 'yellow'];
+print_r(array_intersect_assoc($arrA, $arrB)); // compare key and value
+/**
+ * output :
+ * Array
+ * (
+ * [0] => green
+ * )
+ */
+print_r(array_intersect($arrA, $arrB)); // compare value
+/**
+ * output :
+ * Array
+ * (
+ * [0] => green
+ * [1] => orange
+ * [5] => pink
+ * [6] => yellow
+ * )
+ */
+print_r(array_intersect_key($arrA, $arrB)); // compare key
+/**
+ * output:
+ * Array
+ * (
+ * [0] => green
+ * [5] => pink
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$list = [1, 5, 22, 45];
+echo sprintf('Is list %s', array_is_list($list) ? 'true' : 'false'), PHP_EOL; // key is number , array is list
+$list['test'] = 101;
+echo sprintf('Is list %s', array_is_list($list) ? 'true' : 'false'), PHP_EOL; // key contains string , array is not list
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+echo sprintf('Has key name exist :  %s', array_key_exists('name1', ['name' => 'packie']) ? 'true' : 'false'), PHP_EOL;
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$demo1 = ['first' => 'name1', 'last' => 'name2'];
+echo sprintf('First key_name = %s', array_key_first($demo1)), PHP_EOL; //output : first
+echo sprintf('Last key_name = %s', array_key_last($demo1)), PHP_EOL;  //output : last
+print_r(array_keys($demo1));
+/**
+ * output:
+ * Array
+ * (
+ *   [0] => first
+ *   [1] => last
+ * )
+ */
+print_r(array_map(static fn($value): int => $value * 2, range(1, 5)));
+/**
+ * output:
+ * Array
+ * (
+ * [0] => 2
+ * [1] => 4
+ * [2] => 6
+ * [3] => 8
+ * [4] => 10
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$ar1 = ['color' => ['favorite' => 'red'], 5];
+$ar2 = [10, 'color' => ["favorite" => 'green', 'blue']];
+print_r(array_merge_recursive($ar1, $ar2));
+/**
+ * output:
+ * Array
+ * (
+ * [color] => Array
+ * (
+ * [favorite] => Array
+ * (
+ * [0] => red
+ * [1] => green
+ * )
+ *
+ * [0] => blue
+ * )
+ *
+ * [0] => 5
+ * [1] => 10
+ * )
+ */
+$ar1 = ['test01', 'test02', 'test03', 'test04', 'test' => 'test05'];
+$ar2 = ['test05', 'test06', 'test07', 'test08', 'test' => 'test10'];
+// array merge :
+// when key is number, do not replace any element
+// when key is string, rear array element key is eq to array element key , rear array ele will replace the front array ele
+print_r(array_merge($ar1, $ar2));
+/**
+ * output:
+ * array(
+ * [0] => test01
+ * [1] => test02
+ * [2] => test03
+ * [3] => test04
+ * [test] => test10
+ * [4] => test05
+ * [5] => test06
+ * [6] => test07
+ * [7] => test08
+ * )
+ * </
+ */
+/**
+ * array + array
+ * rear array ele key is equal to front array ele key,front array ele replace the rear array ele
+ */
+print_r($ar1 + $ar2);
+/**
+ * output:
+ * Array
+ * (
+ * [0] => test01
+ * [1] => test02
+ * [2] => test03
+ * [3] => test04
+ * [test] => test05
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$list = [22, 45, 1, 5, 277, 2];
+array_multisort($list, SORT_ASC, SORT_NATURAL); // it can pass multiple array to sort
+print_r($list);
+/**
+ * output :
+ * Array
+ * (
+ * [0] => 1
+ * [1] => 2
+ * [2] => 5
+ * [3] => 22
+ * [4] => 45
+ * [5] => 277
+ * )
+ */
+arsort($list, SORT_NUMERIC); // desc sort and keep the key constant
+print_r($list);
+/**
+ * output:
+ * Array
+ * (
+ * [5] => 277
+ * [4] => 45
+ * [3] => 22
+ * [2] => 5
+ * [1] => 2
+ * [0] => 1
+ * )
+ */
+rsort($list); // desc sort
+print_r($list);
+/**
+ * output :
+ * Array
+ * (
+ * [0] => 277
+ * [1] => 45
+ * [2] => 22
+ * [3] => 5
+ * [4] => 2
+ * [5] => 1
+ * )
+ */
+sort($list); // asc sort
+print_r($list);
+/**
+ * output :
+ * Array
+ * (
+ * [0] => 1
+ * [1] => 2
+ * [2] => 5
+ * [3] => 22
+ * [4] => 45
+ * [5] => 277
+ * )
+ */
+asort($list, SORT_NUMERIC);// asc sort and keep the key constant
+print_r($list);
+/**
+ * output:
+ * Array
+ * (
+ * [0] => 1
+ * [1] => 2
+ * [2] => 5
+ * [3] => 22
+ * [4] => 45
+ * [5] => 277
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+print_r(array_pad([22, 45, 1], 5, 6666));
+/**
+ * output:
+ * Array
+ * (
+ * [0] => 22
+ * [1] => 45
+ * [2] => 1
+ * [3] => 6666
+ * [4] => 6666
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$stack = ["orange", "banana", "apple", "raspberry"];
+array_push($stack, 'test');
+$fruit = array_pop($stack);
+print_r($stack);
+/**
+ * output:
+ * Array
+ * (
+ * [0] => orange
+ * [1] => banana
+ * [2] => apple
+ * [3] => raspberry
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+echo sprintf('x result : %d', array_product([2, 4, 6, 8])), PHP_EOL;
+/**
+ * output: x result : 384
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+echo sprintf('x result : %d', array_sum([2, 4, 6, 8])), PHP_EOL;
+/**
+ * output: x result : 20
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+print_r(array_rand(['key1' => "Neo", 'key2' => "Morpheus", 'key3' => "Trinity", 'key4' => "Cypher", 'key5' => "Tank"], 2));
+/**
+ * return rand array key
+ * output :
+ * Array
+ * (
+ * [0] => key1
+ * [1] => key3
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+echo array_reduce([1 => 1, 2 => 2, 3 => 3, 4 => 4], static fn($carry, $item): string => $carry . '-' . $item) . PHP_EOL;
+/**
+ * carry :  previous iteration . item : value of element
+ * output : -1-2-3-4
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$base = ['citrus' => ["orange"], 'berries' => ["blackberry", "raspberry"], 'ooh' => 'you', 'replace' => ['x' => ['xxx1' => 'xxx1']]];
+$replacements = ['citrus' => ['pineapple_02'], 'berries' => ['blueberry02'], 'replace' => ['x' => ['xxx1' => 'xxx2']]];
+print_r(array_replace($base, $replacements));
+/**
+ * output:
+ * Array
+ * (
+ * [citrus] => Array
+ * (
+ * [0] => pineapple_02
+ * )
+ *
+ * [berries] => Array
+ * (
+ * [0] => blueberry02
+ * )
+ *
+ * [ooh] => you
+ * [replace] => Array
+ * (
+ * [x] => Array
+ * (
+ * [xxx1] => xxx2
+ * )
+ * )
+ * )
+ * )
+ */
+print_r(array_replace_recursive($base, $replacements));
+/**
+ * output :
+ * Array
+ * (
+ * [citrus] => Array
+ * (
+ * [0] => pineapple_02
+ * )
+ *
+ * [berries] => Array
+ * (
+ * [0] => blueberry02
+ * [1] => raspberry
+ * )
+ *
+ * [ooh] => you
+ * [replace] => Array
+ * (
+ * [x] => Array
+ * (
+ * [xxx1] => xxx2
+ * )
+ *
+ * )
+ *
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+print_r(array_reverse(["php", 4.0, ["green", "red"], 'nginx' => '52']));
+/**
+ * output:
+ * Array
+ * (
+ * [nginx] => 52
+ * [0] => Array
+ * (
+ * [0] => green
+ * [1] => red
+ * )
+ *
+ * [1] => 4
+ * [2] => php
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+echo sprintf('php version searched , key : %s', array_search('52', ["php", 4.0, ["green", "red"], 'nginx' => '52'], true)), PHP_EOL;
+// output : php version searched , key : nginx
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$stack = ["orange", "banana", "apple", "raspberry"];
+array_unshift($stack, 'pear');
+$fruit = array_shift($stack);
+print_r($stack);
+/**
+ * output :
+ * Array
+ * (
+ * [0] => orange
+ * [1] => banana
+ * [2] => apple
+ * [3] => raspberry
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+print_r(array_slice($stack, 1, 2, true));
+/**
+ * output :
+ * Array
+ * (
+ * [1] => banana
+ * [2] => apple
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$arrA = ['a', 'b', 'c', 'd', 'e', 'f'];
+$arrB = ['a2', 'b2', 'c3', 'd4', 'e5', 'f6'];
+print_r(array_splice($arrA, 0, 3, $arrB));
+/**
+ * output:
+ * Array
+ * (
+ * [0] => a
+ * [1] => b
+ * [2] => c
+ * )
+ */
+print_r($arrA);
+/**
+ * output:
+ * Array
+ * (
+ * [0] => a2
+ * [1] => b2
+ * [2] => c3
+ * [3] => d4
+ * [4] => e5
+ * [5] => f6
+ * [6] => d
+ * [7] => e
+ * [8] => f
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $input = ["a" => "green", "red", "b" => "green", "blue", "red"];
 print_r(array_unique($input));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * array value
+ * output
+ * Array
+ * (
+ * [a] => green
+ * [0] => red
+ * [1] => blue
+ * )
  */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $array = ["size" => "XL", "color" => "gold"];
 print_r(array_values($array));
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * array walk
+ * output
+ * Array
+ * (
+ * [0] => XL
+ * [1] => gold
+ * )
  */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $fruits = ["d" => "lemon", "a" => "orange", "b" => "banana", "c" => "apple"];
 array_walk($fruits, static function ($value, $key, $prefix) {
     echo sprintf('value = %s , key = %s , prefix = %s', $value, $key, $prefix), PHP_EOL;
 }, 'fruit');
-
-$sweet = ['a' => 'apple', 'b' => 'banana'];
-$fruits = ['sweet' => $sweet, 'sour' => 'lemon'];
+/**
+ * output
+ * value = lemon , key = d , prefix = fruit
+ * value = orange , key = a , prefix = fruit
+ * value = banana , key = b , prefix = fruit
+ * value = apple , key = c , prefix = fruit
+ */
+$fruits = ['sweet' => ['a' => 'apple', 'b' => 'banana'], 'sour' => 'lemon'];
 array_walk_recursive($fruits, static function ($item, $key) {
     echo "$key holds $item\n";
 });
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * array compact
+ * output:
+ * a holds apple
+ * b holds banana
+ * sour holds lemon
  */
-print_r(compact('sweet', 'fruits'));
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array extract
- */
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+print_r(compact('fruits'));
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $size = "large";
 $varArray = ["color" => "blue", "size" => "medium", "shape" => "sphere"];
-extract($varArray, EXTR_PREFIX_SAME, "wddx");
-echo sprintf('color : %s,size : %s,shape : %s', $color ?? '', $size ?? '', $shape ?? ''), PHP_EOL;
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+extract($varArray, EXTR_PREFIX_SAME, "clone");
+echo sprintf('color : %s,size : %s,shape : %s,clone : %s', $color ?? '', $size ?? '', $shape ?? '', $clone_size ?? ''), PHP_EOL;
 /**
- * in array
+ * output:
+ * color : blue,size : large,shape : sphere
  */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 echo sprintf('is in array : %s', in_array('test', ['test01', 'test'], true) ? 'true' : 'false'), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * array pointer action
- */
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $array = ['fruit1' => 'apple', 'fruit2' => 'orange', 'fruit3' => 'grape', 'fruit4' => 'apple', 'fruit5' => 'apple'];
 while ($fruitName = current($array)) {
     if ($fruitName === 'apple') {
@@ -292,23 +753,21 @@ while ($fruitName = current($array)) {
 }
 reset($array);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * kSort
- */
-krsort($array, SORT_STRING);
+
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+krsort($array, SORT_STRING); // desc sort by key
 print_r($array);
-ksort($array, SORT_STRING);
+ksort($array, SORT_STRING); // asc sort by key
 print_r($array);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * list
- */
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $info = ['coffee', 'brown', 'caffeine'];
 [$drink, $color, $power] = $info;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * sort array
- */
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $array1 = $array2 = $array3 = ["img12.png", "img10.png", "img2.png", "img1.Png"];
 asort($array1);
 natsort($array2);
@@ -316,11 +775,34 @@ natcasesort($array3);
 print_r($array1);
 print_r($array2);
 print_r($array3);
+/**
+ * output
+ * Array
+ * (
+ * [3] => img1.Png
+ * [1] => img10.png
+ * [0] => img12.png
+ * [2] => img2.png
+ * )
+ * Array
+ * (
+ * [3] => img1.Png
+ * [2] => img2.png
+ * [1] => img10.png
+ * [0] => img12.png
+ * )
+ * Array
+ * (
+ * [3] => img1.Png
+ * [2] => img2.png
+ * [1] => img10.png
+ * [0] => img12.png
+ * )
+ */
 shuffle($array01);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * user function sort
- */
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $array = ['a' => 4, 'b' => 8, 'c' => -1, 'd' => -9, 'e' => 2, 'f' => 5, 'g' => 3, 'h' => -4];
 uasort($array, static function ($a, $b) {
     if ($a === $b) {
@@ -329,6 +811,25 @@ uasort($array, static function ($a, $b) {
 
     return ($a < $b) ? -1 : 1;
 });
+print_r($array);
+/**
+ * output
+ * Array
+ * (
+ * [d] => -9
+ * [h] => -4
+ * [c] => -1
+ * [e] => 2
+ * [g] => 3
+ * [a] => 4
+ * [f] => 5
+ * [b] => 8
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
 $a = ["John" => 1, "the Earth" => 2, "an apple" => 3, "a banana" => 4];
 uksort($a, static function ($a, $b) {
     $a = preg_replace('@^(a|an|the) @', '', $a);
@@ -336,14 +837,43 @@ uksort($a, static function ($a, $b) {
 
     return strcasecmp($a, $b);
 });
-$a = [3, 2, 5, 6, 1];
-usort($a, static function ($a, $b) {
+print_r($a);
+/**
+ * output:
+ * Array
+ * (
+ * [an apple] => 3
+ * [a banana] => 4
+ * [the Earth] => 2
+ * [John] => 1
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+$a2 = [3, 2, 5, 6, 1];
+usort($a2, static function ($a, $b) {
     if ($a === $b) {
         return 0;
     }
 
     return ($a < $b) ? -1 : 1;
 });
+print_r($a2);
+/**
+ * output
+ * Array
+ * (
+ * [0] => 1
+ * [1] => 2
+ * [2] => 3
+ * [3] => 5
+ * [4] => 6
+ * )
+ */
+echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
+
+
 
 
 

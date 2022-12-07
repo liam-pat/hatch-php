@@ -1,14 +1,30 @@
 <?php
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $year202210Days = cal_days_in_month(CAL_MONTH_GREGORIAN_LONG, 10, 2022);
-printf("There was %d days in August 2003 \n", $year202210Days);
+printf("There were %d days in August 2003 \n", $year202210Days);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-
+/**
+ * output : There were 31 days in August 2003
+ */
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-$today = unixtojd(time());
-print_r(cal_from_jd($today, CAL_GREGORIAN));
+$unixTimestampToJD = unixtojd(time());
+print_r(cal_from_jd($unixTimestampToJD, CAL_GREGORIAN));
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-
+/**
+ * output :
+ * (
+ *   [date] => 12/7/2022
+ *   [month] => 12
+ *   [day] => 7
+ *   [year] => 2022
+ *   [dow] => 3
+ *   [abbrevdayname] => Wed
+ *   [dayname] => Wednesday
+ *   [abbrevmonth] => Dec
+ *   [monthname] => December
+ * )
+ *
+ */
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 var_export(cal_info(CAL_GREGORIAN));
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
@@ -27,7 +43,6 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $jd = cal_to_jd(CAL_GREGORIAN, 10, 12, 2022);
-$jd01 = unixtojd(time());
 $weekDayNum = jddayofweek($jd, 0);
 $monthDayName = jdmonthname($jd, 0);
 $dayToTimestamp = jdtounix($jd);

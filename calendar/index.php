@@ -7,8 +7,7 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
  * output : There were 31 days in August 2003
  */
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-$unixTimestampToJD = unixtojd(time());
-print_r(cal_from_jd($unixTimestampToJD, CAL_GREGORIAN));
+var_export(cal_from_jd(unixtojd(time()), CAL_GREGORIAN));
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * output :

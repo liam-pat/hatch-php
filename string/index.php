@@ -27,14 +27,13 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * split str
  */
-$base64Str = base64_encode('test');
-echo sprintf('str `%s` chuck split : %s', $base64Str, chunk_split($base64Str, 1, '@')), PHP_EOL;
+echo sprintf('str `%s` chuck split : %s', 'I wanna test', chunk_split('I wanna test', 1, '@')), PHP_EOL;
+// out put : str `I wanna test` chuck split : I@ @w@a@n@n@a@ @t@o@ @t@e@s@t@
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * uuencode and uu decode
+ * uuencode and uu decode . can use in network transfer
  */
-$str2 = 'original code';
-echo sprintf('str encode = %s, str decode = %s', $a = convert_uuencode($str2), convert_uudecode($a)), PHP_EOL;
+echo sprintf('str encode = %s, str decode = %s', $a = convert_uuencode('original code'), convert_uudecode($a)), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * count chars
@@ -42,11 +41,31 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 foreach (count_chars('I love u', 1) as $key => $val) {
     echo "There were $val instance(s) of \"", chr($key), "\" in the string.\n";
 }
+/**
+ * output :
+ * [
+ * 32 => 2,
+ * 73 => 1,
+ * 101 => 1,
+ * 108 => 1,
+ * 111 => 1,
+ * 117 => 1,
+ * 118 => 1,
+ * ]
+ */
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * crc32 validate func
+ * checksum function
  */
-echo sprintf('%u \n', crc32('test')), PHP_EOL;
+echo sprintf('%s \n', sha1('test')), PHP_EOL;
+echo sprintf('%s \n', md5('test')), PHP_EOL;
+echo sprintf('%s \n', hash('crc32b', 'test')), PHP_EOL;
+echo sprintf('%u \n', crc32('test')), PHP_EOL;                // return the int
+
+echo md5_file('./index.php'), PHP_EOL;
+echo sha1_file('./index.php', false), PHP_EOL;
+
+
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * crypt function
@@ -85,19 +104,9 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 echo lcfirst('HELLO'), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * localeconv
+ * get the string format info
  */
 print_r(localeconv());
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * calc file md5 valude
- */
-echo sprintf('file : %s ,md5 str : %s', './index.php', md5_file('./index.php')), PHP_EOL;
-echo sprintf('md5 str : %s ', md5(time())), PHP_EOL;
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * nl_langinfo
- */
 echo nl_langinfo(YESEXPR), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
@@ -108,66 +117,49 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * number format
  */
-$number = 1234.56;
-echo sprintf('number : %s format to %s', $number, number_format($number, 2, '.', ',')), PHP_EOL;
+echo sprintf('number : %s format to %s', 1234.56, number_format(1234.56, 2, '.', ',')), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * parse str
  */
-$str = "first=value&arr[]=foo+bar&arr[]=baz";
-parse_str($str, $output);
+parse_str("first=value&arr[]=foo+bar&arr[]=baz", $output);
 print_r($output);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * quoted_printable_encode
  */
-$str = 'test test test';
-echo sprintf('encode str : %s , decode str : %s', $a = quoted_printable_encode($str), quoted_printable_decode($a)), PHP_EOL;
+echo sprintf('encode str : %s , decode str : %s', $a = quoted_printable_encode('test test test'), quoted_printable_decode($a)), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * quotemeta
+ * quote meta . including . \ + * ? [ ^ ] ( $ )
  */
-$str = "Hello world. (can you hear me?)";
-echo quotemeta($str), PHP_EOL;
-echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-/**
- * sha1 file
- */
-echo sprintf('file : %s ,md5 str : %s', './index.php', sha1_file('./index.php', false)), PHP_EOL;
-echo sprintf('md5 str : %s ', sha1(time())), PHP_EOL;;
+echo quotemeta("Hello world. (can you hear me?)"), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * str similar test
  */
-$var1 = 'PHP IS GREAT';
-$var2 = 'WITH MYSQL';
-similar_text($var1, $var2, $percent);
-echo sprintf('"%s" similar as "%s" , %s percent', $var1, $var2, $percent), PHP_EOL;
+similar_text('PHP IS GREAT', 'WITH MYSQL', $percent);
+echo sprintf('deference percent : %s', $percent), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * scanf
+ * @notice do not work for me
  */
-$mandate = "January 01 2000";
-[$month, $day, $year] = sscanf($mandate, "%s %d %d");
+[$month, $day, $year] = sscanf("January 01 2000", "%s %d %d");
 echo sprintf('%s %d %d', $month, $day, $year), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * str contains
  */
 $str = 'The lazy fox jumped over the fence';
-if (str_contains($str, 'jumped')) {
-    echo sprintf('str can get jumped : %s', 'yes'), PHP_EOL;
-}
+echo str_contains($str, 'jumped') ? sprintf('str can get jumped : %s', 'yes') . PHP_EOL : '';
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * str ends with
  */
-if (str_ends_with($str, 'fence')) {
-    echo sprintf('str end with fence : %s', 'yes'), PHP_EOL;
-}
-if (str_starts_with($str, 'The lazy')) {
-    echo sprintf('str start with The lazy : %s', 'yes'), PHP_EOL;
-}
+
+$str02 = 'str start with The lazy';
+echo str_ends_with($str, 'fence') ? 'yes' : 'no', PHP_EOL;
+echo str_starts_with($str, 'The lazy') ? 'yes' : 'no', PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
  * str get csv
@@ -201,9 +193,11 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 echo str_repeat("-=", 10), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * rot13 , char +13  ,
+ * rot13 , char +13  , decode use the same function
  */
-echo str_rot13('PHP 4.3.0'), PHP_EOL; // CUC 4.3.0
+$encodeStr1 = str_rot13('PHP 4.3.0');
+echo $encodeStr1, PHP_EOL; // CUC 4.3.0
+echo str_rot13($encodeStr1), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
  * string shuffle , can gen a random str
@@ -211,7 +205,7 @@ echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 echo str_shuffle('I am a big boy'), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * string split
+ * string split ,default 1
  */
 $str = "Hello Friend";
 $arr1 = str_split($str);
@@ -220,7 +214,7 @@ print_r($arr1);
 print_r($arr2);
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * string word count
+ * string word count, 0. count the word 1.return all the word , 2. return the assoc array
  */
 $str = "Hello fri3nd, you're looking          good today!";
 echo sprintf('str contain word : %s', str_word_count($str)), PHP_EOL;
@@ -238,7 +232,6 @@ $var2 = "hello";
 echo sprintf('val1  ===  vale is %s', strcasecmp($var1, $var2) === 0 ? 'ture' : 'false'), PHP_EOL;
 echo sprintf('val1  ===  vale is %s', strcmp($var1, $var2) === 0 ? 'ture' : 'false'), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
-
 /**
  * set locale to compare
  */
@@ -267,17 +260,18 @@ if (strlen('*test.file') !== strcspn('*test.file', $forbidden)) {
 echo sprintf('w position is %d', strcspn("Hello world!", "w", 0, 6)), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * strip_tags
+ * strip_tags , remove the specific symbol
  */
 $text = '<p>Test paragraph.</p><!-- Comment --> <a href="#fragment">Other text</a> <br>';
 echo strip_tags($text, '<br>'), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * stripcslashes
+ * @notice use level : high
  */
 $jsonStr = '"{\"resourceId\":\"dfead70e4ec5c11e43514000ced0cdcaf\",\"properties\":{\"process_id\":\"process4\",\"name\":\"\",\"documentation\":\"\",\"processformtemplate\":\"\"}}"';
-//echo addcslashes($csvStr, 'UTF-8'), PHP_EOL;
 echo stripcslashes($jsonStr), PHP_EOL;
+$str = "Is your name O\'reilly?";
+echo stripslashes($str), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
  * stripos and strpos
@@ -285,12 +279,6 @@ echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 if (stripos('test.com', 'test') !== false) {
     echo sprintf('exist test : %s', 'yes'), PHP_EOL;
 }
-echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
-/**
- * stripslashes
- */
-$str = "Is your name O\'reilly?";
-echo stripslashes($str), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
  * str len
@@ -312,7 +300,7 @@ echo strncmp('aa', 'AA0', 3), PHP_EOL;
 echo strncasecmp('aa', 'aa0', 3), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * strpbrk
+ * strpbrk,  find char in string
  */
 $text = 'This is a Simple text.';
 echo strpbrk($text, 'mi'), PHP_EOL;
@@ -335,13 +323,13 @@ echo sprintf('strrpos(%s,%s) = %s', $t1, $t2, strrpos($t1, $t2)), PHP_EOL;
 echo sprintf('strripos(%s,%s) = %s', $t1, $t2, strripos($t1, $t2) ? 'true' : 'false'), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * strrchr
+ * strrchr, return the last match str
  */
 $text = "Line 1\nLine 2\nLine 3";
 echo strrchr($text, 'Line'), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * strrev
+ * strrev ,reverse the string
  */
 echo strrev("Hello world!"), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
@@ -372,21 +360,21 @@ echo strtoupper($str), PHP_EOL;
 echo strtolower($str), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * strtr
+ * strtr, replace the word
  */
 $str = 'hi all, I said hello';
 echo strtr($str, "hi", "hello"), PHP_EOL;
 echo strtr($str, ["hello" => "hi", "hi" => "hello"]), PHP_EOL;
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * substr_compare
+ * substr_compare , compare the sring
  */
 echo substr_compare("abcde", "bc", 1, 2);
 echo substr_compare("abcde", "de", -2, 2);
 echo substr_compare("abcde", "bcg", 1, 2, true);
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
- * substr_count
+ * substr_count , count the str
  */
 $text = 'This is a test';
 echo substr_count($text, 'is');
@@ -414,13 +402,6 @@ echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 $foo = 'hello world!';
 echo ucfirst($foo), PHP_EOL;
 echo ucwords($foo), PHP_EOL;
-echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
-/**
- * utf encode and decode . ISO-8859-1 to UTF-8 . DEPRECATED PHP 8.2.0
- */
-$str = "\x5A\x6F\xEB";
-$utf8Str = utf8_encode($str);
-echo bin2hex($utf8Str), "\n";
 echo '</br>', str_repeat('-', 20), '</br>', PHP_EOL;
 /**
  * vfprintf,vprintf,vsprintf support the array parameter

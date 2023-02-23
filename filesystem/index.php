@@ -2,6 +2,7 @@
 $newFilePath = '../tmp/test.jpg';
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 echo basename($newFilePath), PHP_EOL;
+// output: test.jpg
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
@@ -67,7 +68,7 @@ echo sprintf('fdatasync save stream to file directly : %s', fdatasync($stream) ?
 fclose($stream);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * feof and fgetc function
+ * fgetc function,l read a char
  */
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $fp = fopen($newFilePath01, 'rb');
@@ -80,12 +81,11 @@ while (!feof($fp)) {
 echo sprintf('fGetC time : %d', $fGetCTimes), PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 /**
- * fgets() function
+ * fgets() function , read a line . default 1024 byte a line
  */
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 rewind($fp);
 while (!feof($fp)) {
-    // default 1024 byte a line
     echo fgets($fp);
     $fGetSTimes++;
 }
@@ -98,14 +98,14 @@ echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 $csvFilePath = '../tmp/csv_data.csv';
 $csvFP = fopen($csvFilePath, 'wb');
-$htmlStr = <<<EOF
+$csvStr = <<<EOF
 8800009495||1006|01|20200702:185811|Activate|20210702:000000|20210119:050000|20210119:050000
 8800009777||1009|02|20200507:000000|Activate|20210507:000000|20210119:050000|20210119:050000
 8800009912||1009|03|20200702:185905|Activate|20210702:000000|20210119:050000|20210119:050000
 8800010074||1006|03|20200702:190321|Activate|20210702:000000|20210119:050000|20210119:050000
 EOF;
 // put content to page cache , will save data by os
-fwrite($csvFP, $htmlStr);
+fwrite($csvFP, $csvStr);
 // update content to system cache
 fflush($csvFP);
 // sync system cache to disk

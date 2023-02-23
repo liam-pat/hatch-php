@@ -58,7 +58,7 @@ echo microtime(true) . PHP_EOL;
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
-echo microtime(true) . PHP_EOL;
+print_r(microtime(false) . PHP_EOL);
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;
 
 echo '</br>', '--------------------------------' . '</br>', PHP_EOL;

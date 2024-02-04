@@ -3,6 +3,7 @@
 ## Purpose
 
 > a) Studying PHP internal function.
+> 
 > b) For inquiring the tech menu
 
 ## Preparation
@@ -15,7 +16,7 @@
 ### 1) Run On Web Server
 
 ```php
-bash > php -S localhost:8088 {{PATH}}
+bash > php -S localhost:8088 {{ PATH }}
 ```
 
 ### 2) Run On PHP CLI

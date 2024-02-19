@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ftp;
+namespace App\extension\ftp;
 
 use FTP\Connection;
 

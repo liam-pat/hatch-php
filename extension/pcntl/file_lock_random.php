@@ -7,7 +7,7 @@ if ($pid === 0) {
         if (flock($fp, LOCK_EX) === true) {
             echo sprintf('[%s]########## Child process get lock successfully %s', date('Y-m-d H:i:s'), PHP_EOL);
 
-            fwrite($fp, sprintf('[%s] 十年生死两茫茫，不思量，自难忘。千里孤坟，无处话凄凉。', date('Y-m-d H:i:s')) . PHP_EOL);
+            fwrite($fp, file_lock_random . phpsprintf('[%s] 十年生死两茫茫，不思量，自难忘。千里孤坟，无处话凄凉。', date('Y-m-d H:i:s')) . PHP_EOL);
             fflush($fp);
             fsync($fp);
 

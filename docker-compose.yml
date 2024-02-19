@@ -3,7 +3,7 @@ version: '3.4'
 services:
     ftp:
         image: stilliard/pure-ftpd
-        container_name: php-learning_ftp
+        container_name: hatch-php_ftp
         restart: on-failure
         environment:
             TZ: 'Asia/Shanghai'
@@ -16,26 +16,25 @@ services:
         volumes:
             - "./tmp:/home/ftp"
         networks:
-            php-further-learning-network:
+            hatch-php-network:
                 ipv4_address: 192.168.220.15
-
-    mysql:
-        image: mysql:8.0
-        container_name: php-learning_mysql
+                
+    php:
+        image: biyongyao/php-fpm-alpine-dev:8.2
         restart: on-failure
-        environment:
-            - MYSQL_DATABASE=php
-            - MYSQL_ROOT_PASSWORD=root
+        container_name: hatch-php_php82
+        privileged: true
+        working_dir: /var/www/html/php
+        user: "${UID-1000}:${GID-1000}"
         volumes:
-            - "./docker/mysql/conf/:/var/lib/mysql/conf.d/"
-            - "./docker/mysql/init/:/docker-entrypoint-initdb.d/"
-        command: --default-authentication-plugin=mysql_native_password --lower-case-table-names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+            - ../hatch-php:/var/www/html/hatch-php
         networks:
-            php-further-learning-network:
-                ipv4_address: 192.168.220.25
+            hatch-php-network:
+                ipv4_address: 192.168.220.20
+
 
 networks:
-    php-further-learning-network:
+    hatch-php-network:
         ipam:
             config:
                 -   subnet: 192.168.220.0/24

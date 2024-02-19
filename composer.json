@@ -1,10 +1,10 @@
 {
-    "name": "packie/php-further-learning",
+    "name": "packie/hatch-php",
     "type": "project",
     "description": "Learn PHP function usage",
     "require": {
+        "php": "^8.2",
         "ext-pcntl": "*",
-        "ext-zip": "*",
         "ext-simplexml": "*",
         "ext-ftp": "*",
         "ext-mysqli": "*",

@@ -48,7 +48,7 @@ function getConstVar(string $name): void
     echo sprintf('CONNECTION_%s', $name);
 }
 
-function hex2bin($input, $assume_safe = true): string
+function hex2bin2($input, $assume_safe = true): string
 {
     if ($assume_safe !== true && !(strlen($input) % 2 === 0 || preg_match('/^[0-9a-f]+$/i', $input))) {
         return '';

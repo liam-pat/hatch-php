@@ -9,7 +9,7 @@ $localTmpDir = '../tmp/';
 $localFTPFile = $localTmpDir . 'ftp.txt';
 touch($localFTPFile);
 
-$ftp = new \App\ftp\FTP('192.168.220.15', 'ftp', 'ftp');
+$ftp = new \App\extension\ftp\FTP('192.168.220.15', 'ftp', 'ftp');
 /**
  * pwd function
  */

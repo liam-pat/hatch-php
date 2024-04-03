@@ -7,11 +7,11 @@
         "ext-pcntl": "*",
         "ext-simplexml": "*",
         "ext-ftp": "*",
-        "ext-mysqli": "*",
         "ext-calendar": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "symfony/var-dumper": "^7.0"
     },
     "autoload": {
         "psr-4": {

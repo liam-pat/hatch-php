@@ -20,11 +20,11 @@ services:
                 ipv4_address: 192.168.220.15
                 
     php:
-        image: biyongyao/php-fpm-alpine-dev:8.2
+        image: biyongyao/php-fpm-alpine-dev:8.3
         restart: on-failure
         container_name: hatch-php_php82
         privileged: true
-        working_dir: /var/www/html/php
+        working_dir: /var/www/html/hatch-php
         user: "${UID-1000}:${GID-1000}"
         volumes:
             - ../hatch-php:/var/www/html/hatch-php

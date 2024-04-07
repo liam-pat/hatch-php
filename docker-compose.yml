@@ -1,40 +1,20 @@
 version: '3.4'
 
 services:
-    ftp:
-        image: stilliard/pure-ftpd
-        container_name: hatch-php_ftp
-        restart: on-failure
-        environment:
-            TZ: 'Asia/Shanghai'
-            PUBLICHOST: "localhost"
-            FTP_USER_NAME: ftp
-            FTP_USER_PASS: ftp
-            FTP_USER_HOME: /home/ftp
-            FTP_USER_UID: 1000
-            FTP_USER_GID: 1000
-        volumes:
-            - "./tmp:/home/ftp"
-        networks:
-            hatch-php-network:
-                ipv4_address: 192.168.220.15
-                
-    php:
-        image: biyongyao/php-fpm-alpine-dev:8.3
-        restart: on-failure
-        container_name: hatch-php_php82
-        privileged: true
-        working_dir: /var/www/html/hatch-php
-        user: "${UID-1000}:${GID-1000}"
-        volumes:
-            - ../hatch-php:/var/www/html/hatch-php
-        networks:
-            hatch-php-network:
-                ipv4_address: 192.168.220.20
-
+  php:
+    image: biyongyao/php-fpm-alpine-dev:8.3
+    container_name: hatch-php_php83
+    restart: on-failure
+    working_dir: /var/www/html/hatch-php
+    user: "${UID-1000}:${GID-1000}"
+    volumes:
+      - "../hatch-php:/var/www/html/hatch-php"
+    networks:
+      hatch-php-network:
+        ipv4_address: 192.168.220.20
 
 networks:
-    hatch-php-network:
-        ipam:
-            config:
-                -   subnet: 192.168.220.0/24
+  hatch-php-network:
+    ipam:
+      config:
+        - subnet: 192.168.220.0/24

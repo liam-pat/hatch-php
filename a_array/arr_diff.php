@@ -4,20 +4,19 @@ require_once '../vendor/autoload.php';
 $colors01 = ["a" => "green", "red", "blue", "red"];
 $colors02 = ["b" => "green", "yellow", "red"];
 dump(array_diff($colors01, $colors02));
-echo str_repeat('---', 20) . PHP_EOL;
 ////////////
 ///  [
 //  1 => "blue"
 //]
+echo str_repeat('---------------------------------------------------', 2) . str_repeat('---------------------------------------------------', 2), PHP_EOL;
 dump(array_diff_key($colors01, $colors02));
-echo str_repeat('---', 20) . PHP_EOL;
 /////////////
 /// [
 //  "a" => "green"
 //  2 => "red"
 //]
+echo str_repeat('---------------------------------------------------', 2) . str_repeat('---------------------------------------------------', 2), PHP_EOL;
 dump(array_diff_assoc($colors01, $colors02));
-echo str_repeat('---', 20) . PHP_EOL;
 ////////////
 /// [
 //  "a" => "green"
@@ -25,13 +24,13 @@ echo str_repeat('---', 20) . PHP_EOL;
 //  1 => "blue"
 //  2 => "red"
 //]
+echo str_repeat('---------------------------------------------------', 2) . str_repeat('---------------------------------------------------', 2), PHP_EOL;
 dump(array_diff_uassoc($colors01, $colors02, static function ($key1, $key2) {
     if ($key1 === $key2) {
         return 0;
     }
     return ($key1 > $key2) ? 1 : -1;
 }));
-echo str_repeat('---', 20) . PHP_EOL;
 /////////////////
 /// [
 //  "a" => "green"
@@ -39,13 +38,14 @@ echo str_repeat('---', 20) . PHP_EOL;
 //  1 => "blue"
 //  2 => "red"
 //]
+echo str_repeat('---------------------------------------------------', 2) . str_repeat('---------------------------------------------------', 2), PHP_EOL;
 dump(array_diff_ukey($colors01, $colors02, static function ($key1, $key2) {
     if ($key1 === $key2) {
         return 0;
     }
     return $key1 > $key2 ? 1 : -1;
 }));
-echo str_repeat('---', 20) . PHP_EOL;
+echo str_repeat('---------------------------------------------------', 2) . str_repeat('---------------------------------------------------', 2), PHP_EOL;
 ///////////////
 /// [
 //  "a" => "green"
@@ -64,4 +64,4 @@ array_udiff($a1, $a2, static function ($a, $b) {
     }
     return 0;
 });
-echo str_repeat('---', 20) . PHP_EOL;
+echo str_repeat('---------------------------------------------------', 2) . str_repeat('---------------------------------------------------', 2), PHP_EOL;
